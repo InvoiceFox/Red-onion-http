@@ -8,7 +8,7 @@ Red/System [
 #define uv_loop_t!   [pointer! [byte!]] ;handle!
 
 #import [
-	"/home/jimny/WORK/red/libonion.so" cdecl [
+	"/home/jimny/Work/Red/Red-onion-http/libonion.so" cdecl [
 
 		   onion-new: "onion_new" [ ""
 		   	  flags   [ integer! ]
