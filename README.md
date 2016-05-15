@@ -3,7 +3,7 @@ Red Onion binding
 
 Start of Red onion binding (https://github.com/davidmoreno/onion)
 
-* STATE: just minima Red/System test script for now (with static and dynamic response)
+* STATE: just minimal Red/System test script for now (with static and dynamic response)
 
 * you are welcome to develop it further
 
