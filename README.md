@@ -3,7 +3,7 @@ Red Onion binding
 
 Start of Red onion binding (https://github.com/davidmoreno/onion)
 
-* STATE: just minimal Red/System test script for now (with static and dynamic response)
+* STATE: just some test Red/System  scripts for now (with static and dynamic response, request parameter parse and websockets!)
 
 * you are welcome to develop it further
 
@@ -15,16 +15,24 @@ TODO:
 * add websocket support 
 
 What to do:
-===========
+----------
 
 Compile:
 
-./red -c onion.reds
+./red -c basic.reds
 
 Run:
 
-./onion
+./basic
 
 See:
 
 visit http://localhost:8080 and http://localhost:8080/test
+
+
+Compile:
+./red .c websocket.reds
+
+./websocket
+
+visit http://localhost:8080/ws
