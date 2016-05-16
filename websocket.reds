@@ -7,6 +7,13 @@ Red/System [
 #define size_t! integer!
 #define uv_loop_t!   [pointer! [byte!]] ;handle!
 
+O_ONE: 1
+O_ONE_LOOP: 3
+O_THREADED: 4
+O_DETACH_LISTEN: 8
+O_SYSTEMD: 16
+
+
 OCS_NOT_PROCESSED: 0
 OCS_NEED_MORE_DATA: 1
 OCS_PROCESSED: 2
@@ -123,7 +130,7 @@ main: does [
     print "Now starting.\n"
 
     loop1: declare pointer! [ integer! ]
-    loop1: onion-new 0 
+    loop1: onion-new O_THREADED 
 
     urls: declare pointer! [ integer! ]
     urls: onion-root-url loop1
@@ -174,11 +181,12 @@ websocket-example-cont: func [ [cdecl] data [pointer! [ integer! ]] ws [ pointer
 
 	len: 0
 	len: onion-websocket-read ws tmp2 data-ready-len
-	;if equal? len 0 [ 
+	if (len = 0) [ 
 		;ONION_ERROR("Error reading data: %d: %s (%d)", errno, strerror(errno), data_ready_len);
-		;sleep(1);
-	;	print "ERROR 111"
-	;]
+		; wait(1)
+		return OCS_NEED_MORE_DATA
+		
+	]
 
 	tmpend: tmp2 + len
 	;//tmp[len]=0;
