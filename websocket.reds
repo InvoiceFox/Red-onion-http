@@ -125,35 +125,40 @@ OCS_YIELD: -3
 	]
 ]
 
-main: does [ 
+main: func [
+	  /local onion urls
+] [	   
 
-    print "Now starting.\n"
-
-    loop1: declare pointer! [ integer! ]
-    loop1: onion-new O_THREADED 
+    onion: declare pointer! [ integer! ]
+    onion: onion-new O_THREADED 
 
     urls: declare pointer! [ integer! ]
-    urls: onion-root-url loop1
+    urls: onion-root-url onion
 
     onion-url-add-static urls "test" "Static test." 200
     onion-url-add urls "" :hello-red
 
     onion-url-add urls "ws" :websocket-example
 
-    onion-listen loop1
+    onion-listen onion
 
-    print "Now quitting.\n"
-    onion-free loop1
+    onion-free onion
 ]
 
-hello-red: func [[cdecl] p [pointer! [ integer! ]] req [ pointer! [ integer! ]] res [ pointer! [ integer! ]] return: [ integer! ] ] [ 
+hello-red: func [
+	[cdecl] p [pointer! [ integer! ]] req [ pointer! [ integer! ]] res [ pointer! [ integer! ]] return: [ integer! ] 
+	/local cc 
+] [ 
 	onion-response-write-0 res "Hello world from *Red*!"
 	cc: onion-request-get-queryd req "aaa" "zzz"
 	onion-response-write-0 res cc
 	return OCS_PROCESSED
 ]
 
-websocket-example: func [ [cdecl] data [pointer! [ integer! ]] req [ pointer! [ integer! ]] res [ pointer! [ integer! ]] return: [ integer! ] ] [
+websocket-example: func [ 
+	[cdecl] data [pointer! [ integer! ]] req [ pointer! [ integer! ]] res [ pointer! [ integer! ]] return: [ integer! ] 
+	/local ws 
+] [
 	
     ws: declare pointer! [ integer! ]
 	ws: onion-websocket-new req res
@@ -174,7 +179,10 @@ websocket-example: func [ [cdecl] data [pointer! [ integer! ]] req [ pointer! [ 
 ]
 
 
-websocket-example-cont: func [ [cdecl] data [pointer! [ integer! ]] ws [ pointer! [ integer! ]] data-ready-len [ integer! ] return: [ integer! ]] [
+websocket-example-cont: func [ 
+	[cdecl] data [pointer! [ integer! ]] ws [ pointer! [ integer! ]] data-ready-len [ integer! ] return: [ integer! ]
+	/local len tmpend tmp2
+] [
 	tmp2: "                                                                                                                                        " 
 	;if (data_ready_len>sizeof(tmp))
 	;data_ready_len=sizeof(tmp)-1;
