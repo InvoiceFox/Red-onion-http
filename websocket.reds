@@ -156,17 +156,14 @@ websocket-example: func [ [cdecl] data [pointer! [ integer! ]] req [ pointer! [ 
 		"<html><body><h1>Easy echo</h1><pre id='chat'></pre><script>init = function(){ msg=document.getElementById('msg'); msg.focus();  ws=new WebSocket('ws://'+window.location.host+'/ws'); ws.onmessage=function(ev){  document.getElementById('chat').textContent+=ev.data+'\ '; };}"
 		onion-response-write-0 res 
 		"; window.addEventListener('load', init, false);</script> <input type='text' id='msg' onchange='javascript:ws.send(msg.value); msg.select(); msg.focus();'/> </body></html>"
-		print "WEBWEB"
 		return OCS_PROCESSED
 	] [
 		
 		onion-websocket-write ws "Hello!" 6
-		print "WSWSWS"
 		onion-websocket-set-callback ws :websocket-example-cont
 		
 		return OCS_WEBSOCKET
 	]
-	return 0
 ]
 
 
